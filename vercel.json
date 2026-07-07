@@ -1,8 +1,1 @@
-{
-  "rewrites": [
-    {
-      "source": "/api/vps/:path*",
-      "destination": "/api/xcloud/:path*"
-    }
-  ]
-}
+
