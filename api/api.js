@@ -1,9 +1,11 @@
 export default async function handler(req, res) {
-  const XCLOUD_BASE_URL = 'https://loremgroup.org';   // ← Real Backend URL
+  const XCLOUD_BASE_URL = 'https://loremgroup.org';
   const API_KEY = 'ZI7gMHQnvCLLhqOcKIk-Bb9ab0mWSR-2n8gRSBFe3Kc';
 
-  // Clean path (supports /api/vps/create, /api/vps/vm/list, etc.)
-  let path = req.url.replace(/^\/api\/vps/, '');
+  // Mapping /api/vps to /api ensures the request matches the 
+  // structure documented in the API
+  let path = req.url.replace(/^\/api\/vps/, '/api');
+  
   if (!path || path === '') path = '/';
   if (!path.startsWith('/')) path = '/' + path;
 
@@ -19,7 +21,6 @@ export default async function handler(req, res) {
       },
     };
 
-    // Forward body if it's a POST/PUT request
     if (req.method !== 'GET' && req.body) {
       fetchOptions.body = JSON.stringify(req.body);
     }
